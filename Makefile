@@ -1,16 +1,18 @@
 FLAGS=-lglfw -lGL
 GXX=g++
+TARGET=./target
+SRC=./src
 
 OBJS = \
-window.o \
-test.o
+${TARGET}/window.o \
+${TARGET}/test.o 
 
-all:	${OBJS}
+all:	$(OBJS)
 	
 
-%.o:	%.cpp
+${TARGET}/%.o:	${SRC}/%.cpp
 	${GXX} ${FLAGS} $< -o $@
 	
 clean:
-	rm *.o
+	rm ${TARGET}/*.o
 	echo "Everything is cleaned!"
