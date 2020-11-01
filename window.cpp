@@ -1,6 +1,15 @@
 #include<GLFW/glfw3.h>
 #include<iostream>
 
+void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
+    glViewport(0,0,width, height);
+}
+
+void processInput(GLFWwindow *window) {
+    if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        glfwSetWindowShouldClose(window,true);
+}
+
 int main() {
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR,3);
@@ -14,4 +23,16 @@ int main() {
         return -1;
     }
     glfwMakeContextCurrent(window);
+    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+
+    // render loop
+    while(!glfwWindowShouldClose(window)) {
+        processInput(window);
+        
+        glfwSwapBuffers(window);
+        glfwPollEvents();
+    }
+
+    glfwTerminate();
+    return 0;
 }
